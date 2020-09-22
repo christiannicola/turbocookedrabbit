@@ -5,8 +5,9 @@ go 1.14
 require (
 	github.com/Workiva/go-datastructures v1.0.52
 	github.com/fortytw2/leaktest v1.3.0
+	github.com/houseofcat/turbocookedrabbit/v2 v2.0.8
 	github.com/json-iterator/go v1.1.10
-	github.com/klauspost/compress v1.10.11
+	github.com/klauspost/compress v1.11.0
 	github.com/kr/text v0.2.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect

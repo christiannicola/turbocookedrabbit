@@ -248,7 +248,6 @@ func (con *Consumer) processDeliveries(deliveryChan <-chan amqp.Delivery, chanHo
 				return false
 			}
 		default:
-			break
 		}
 
 		// Convert amqp.Delivery into our internal struct for later use.
@@ -267,23 +266,11 @@ func (con *Consumer) processDeliveries(deliveryChan <-chan amqp.Delivery, chanHo
 			} else {
 				con.receivedMessages <- msg
 			}
-
-		default:
-			if con.sleepOnIdleInterval > 0 {
-				time.Sleep(con.sleepOnIdleInterval)
-			}
-			break
-		}
-
-		// Detect if we should stop consuming.
-		select {
 		case stop := <-con.consumeStop:
 			if stop {
 				con.ConnectionPool.ReturnChannel(chanHost, false)
 				return true
 			}
-		default:
-			break
 		}
 	}
 }
