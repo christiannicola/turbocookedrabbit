@@ -2,9 +2,9 @@ package tcr
 
 import (
 	"math/rand"
-	"sync/atomic"
 	"time"
 
+	"github.com/google/uuid"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/streadway/amqp"
 )
@@ -14,7 +14,7 @@ var mockRandomSource = rand.NewSource(time.Now().UnixNano())
 var mockRandom = rand.New(mockRandomSource)
 
 // CreateLetter creates a simple letter for publishing.
-func CreateLetter(letterID uint64, exchangeName string, queueName string, body []byte) *Letter {
+func CreateLetter(letterID uuid.UUID, exchangeName string, queueName string, body []byte) *Letter {
 
 	envelope := &Envelope{
 		Exchange:    exchangeName,
@@ -31,10 +31,10 @@ func CreateLetter(letterID uint64, exchangeName string, queueName string, body [
 }
 
 // CreateMockLetter creates a mock letter for publishing.
-func CreateMockLetter(letterID uint64, exchangeName string, queueName string, body []byte) *Letter {
+func CreateMockLetter(letterID uuid.UUID, exchangeName string, queueName string, body []byte) *Letter {
 
-	if letterID == 0 {
-		letterID = uint64(1)
+	if letterID == uuid.Nil {
+		letterID = uuid.New()
 	}
 
 	if body == nil { //   h   e   l   l   o       w   o   r   l   d
@@ -59,9 +59,6 @@ func CreateMockLetter(letterID uint64, exchangeName string, queueName string, bo
 // CreateMockRandomLetter creates a mock letter for publishing with random sizes and random Ids.
 func CreateMockRandomLetter(queueName string) *Letter {
 
-	letterID := atomic.LoadUint64(&globalLetterID)
-	atomic.AddUint64(&globalLetterID, 1)
-
 	body := RandomBytes(mockRandom.Intn(randomMax-randomMin) + randomMin)
 
 	envelope := &Envelope{
@@ -75,7 +72,7 @@ func CreateMockRandomLetter(queueName string) *Letter {
 	envelope.Headers["x-tcr-testheader"] = "HelloWorldHeader"
 
 	return &Letter{
-		LetterID:   letterID,
+		LetterID:   uuid.New(),
 		RetryCount: uint32(0),
 		Body:       body,
 		Envelope:   envelope,
@@ -85,8 +82,7 @@ func CreateMockRandomLetter(queueName string) *Letter {
 // CreateMockRandomWrappedBodyLetter creates a mock Letter for publishing with random sizes and random Ids.
 func CreateMockRandomWrappedBodyLetter(queueName string) *Letter {
 
-	letterID := atomic.LoadUint64(&globalLetterID)
-	atomic.AddUint64(&globalLetterID, 1)
+	letterID := uuid.New()
 
 	body := RandomBytes(mockRandom.Intn(randomMax-randomMin) + randomMin)
 
