@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/fortytw2/leaktest"
+	"github.com/google/uuid"
 	"github.com/stoex/turbocookedrabbit/v2/pkg/tcr"
 	"github.com/streadway/amqp"
 	"github.com/stretchr/testify/assert"
@@ -22,7 +23,7 @@ func TestBasicPublish(t *testing.T) {
 	letters := make([]*tcr.Letter, messageCount)
 
 	for i := 0; i < messageCount; i++ {
-		letters[i] = tcr.CreateMockLetter(uint64(i), "", fmt.Sprintf("TestQueue-%d", i%10), nil)
+		letters[i] = tcr.CreateMockLetter(uuid.New(), "", fmt.Sprintf("TestQueue-%d", i%10), nil)
 	}
 
 	elapsed := time.Since(timeStart)

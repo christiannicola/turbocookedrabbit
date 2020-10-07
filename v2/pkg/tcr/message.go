@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/streadway/amqp"
 )
 
 // PublishReceipt is a way to monitor publishing success and to initiate a retry when using async publishing.
 type PublishReceipt struct {
-	LetterID     uint64
+	LetterID     uuid.UUID
 	FailedLetter *Letter
 	Success      bool
 	Error        error

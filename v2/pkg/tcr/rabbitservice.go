@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 	"sync"
-	"sync/atomic"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/streadway/amqp"
 )
 
@@ -131,8 +131,7 @@ func (rs *RabbitService) PublishWithConfirmation(
 		return errors.New("can't have a nil body or an empty exchangename with empty routing key")
 	}
 
-	currentCount := atomic.LoadUint64(&rs.letterCount)
-	atomic.AddUint64(&rs.letterCount, 1)
+	currentCount := uuid.New()
 
 	var data []byte
 	var err error
@@ -184,8 +183,7 @@ func (rs *RabbitService) Publish(
 		return errors.New("can't have a nil input or an empty exchangename with empty routing key")
 	}
 
-	currentCount := atomic.LoadUint64(&rs.letterCount)
-	atomic.AddUint64(&rs.letterCount, 1)
+	currentCount := uuid.New()
 
 	var data []byte
 	var err error
@@ -233,8 +231,7 @@ func (rs *RabbitService) PublishData(
 		return errors.New("can't have a nil input or an empty exchangename with empty routing key")
 	}
 
-	currentCount := atomic.LoadUint64(&rs.letterCount)
-	atomic.AddUint64(&rs.letterCount, 1)
+	currentCount := uuid.New()
 
 	rs.Publisher.Publish(
 		&Letter{
@@ -262,8 +259,7 @@ func (rs *RabbitService) PublishLetter(letter *Letter) error {
 		return errors.New("unable to publish as service shutdown triggered")
 	}
 
-	currentCount := atomic.LoadUint64(&rs.letterCount)
-	atomic.AddUint64(&rs.letterCount, 1)
+	currentCount := uuid.New()
 
 	letter.LetterID = currentCount
 
@@ -280,8 +276,7 @@ func (rs *RabbitService) QueueLetter(letter *Letter) error {
 		return errors.New("unable to queue letter as service shutdown triggered")
 	}
 
-	currentCount := atomic.LoadUint64(&rs.letterCount)
-	atomic.AddUint64(&rs.letterCount, 1)
+	currentCount := uuid.New()
 
 	letter.LetterID = currentCount
 
