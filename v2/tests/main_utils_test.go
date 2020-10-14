@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/christiannicola/turbocookedrabbit/v2/pkg/tcr"
 	jsoniter "github.com/json-iterator/go"
-	"github.com/stoex/turbocookedrabbit/v2/pkg/tcr"
 	"github.com/stretchr/testify/assert"
 )
 

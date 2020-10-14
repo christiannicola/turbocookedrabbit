@@ -1,4 +1,4 @@
-module github.com/stoex/turbocookedrabbit
+module github.com/christiannicola/turbocookedrabbit
 
 go 1.14
 

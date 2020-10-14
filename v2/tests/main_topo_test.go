@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stoex/turbocookedrabbit/v2/pkg/tcr"
+	"github.com/christiannicola/turbocookedrabbit/v2/pkg/tcr"
 	"github.com/streadway/amqp"
 	"github.com/stretchr/testify/assert"
 )

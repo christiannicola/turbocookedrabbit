@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/christiannicola/turbocookedrabbit/v2/pkg/tcr"
 	"github.com/fortytw2/leaktest"
-	"github.com/stoex/turbocookedrabbit/v2/pkg/tcr"
 	"github.com/stretchr/testify/assert"
 )
 

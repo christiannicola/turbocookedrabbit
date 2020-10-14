@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stoex/turbocookedrabbit/v2/pkg/tcr"
+	"github.com/christiannicola/turbocookedrabbit/v2/pkg/tcr"
 )
 
 var Seasoning *tcr.RabbitSeasoning
